@@ -1,6 +1,7 @@
 library(shiny)
 
 generate_story <- function(noun, verb, adjective, adverb) {
+  cat("----------------------\n", "gen story fn\n", "________________" )
   glue::glue(
     "
     Once upon a time, there was a {adjective} {noun} who loved to
@@ -12,7 +13,9 @@ generate_story <- function(noun, verb, adjective, adverb) {
 ui <- fluidPage(
   titlePanel("Mad Libs Game"),
   sidebarLayout(
+
     sidebarPanel(
+      cat("----------------------\n", "sidebar\n", "________________" ),
       textInput("noun1", "Enter a noun:", ""),
       textInput("verb", "Enter a verb:", ""),
       textInput("adjective", "Enter an adjective:", ""),
@@ -27,7 +30,9 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
+  cat("----------------------\n", "server\n", "________________" )
   story <- eventReactive(input$submit, {
+    cat("----------------------\n", "story server fn\n", "________________" )
     generate_story(input$noun1, input$verb, input$adjective, input$adverb)
   })
   output$story <- renderText({
